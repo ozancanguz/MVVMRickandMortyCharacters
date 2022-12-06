@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ozancanguz.mvvmrickandmortyapp">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-   <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".HiltApplication"
         android:allowBackup="true"
@@ -14,6 +15,9 @@
         android:theme="@style/Theme.MVVMRickandMortyApp">
         <activity
             android:name=".ui.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.Splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
