@@ -11,16 +11,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel(private val repository: Repository,application: Application):AndroidViewModel(application){
+class MainViewModel @Inject constructor(private val repository: Repository, application: Application):AndroidViewModel(application){
 
 
-    private val charList=MutableLiveData<List<Character>>()
+    val charList=MutableLiveData<List<Character>>()
 
     var job: Job?=null
 
-    suspend fun requestApiData(){
+    fun requestApiData(){
 
         job= CoroutineScope(Dispatchers.IO).launch {
             val response=repository.remote.getAllChars()
