@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ozancanguz.mvvmrickandmortyapp.R
+import com.ozancanguz.mvvmrickandmortyapp.adapter.CharactersAdapter
 import com.ozancanguz.mvvmrickandmortyapp.databinding.FragmentListBinding
 import com.ozancanguz.mvvmrickandmortyapp.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +23,7 @@ class ListFragment : Fragment() {
     // This property is only valid between onCreateView and
 // onDestroyView.
     private val binding get() = _binding!!
+    private var charAdapter=CharactersAdapter()
 
     private lateinit var mainViewModel:MainViewModel
 
@@ -33,7 +36,9 @@ class ListFragment : Fragment() {
 
         mainViewModel=ViewModelProvider(this).get(MainViewModel::class.java)
 
+        setUpRv()
        observeLiveData()
+
 
 
 
@@ -41,10 +46,17 @@ class ListFragment : Fragment() {
         return view
     }
 
+    private fun setUpRv() {
+        binding.recyclerView.layoutManager=LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter=charAdapter
+    }
+
+
     private fun observeLiveData() {
         mainViewModel.requestApiData()
         mainViewModel.charList.observe(viewLifecycleOwner, Observer {
-            Log.d("chars","" +it)
+
+            charAdapter.setData(it)
         })
     }
 
